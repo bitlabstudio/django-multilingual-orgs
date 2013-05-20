@@ -102,6 +102,9 @@ INTERNAL_APPS = [
     'multilingual_orgs',
 ]
 
+
+SECRET_KEY = 'this is no real secret key'
+
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
 
 COVERAGE_MODULE_EXCLUDES += EXTERNAL_APPS
