@@ -22,8 +22,6 @@ You will need to have the following packages installed:
 Installation
 ------------
 
-The PyPi version is not released just yet. Please stand by a bit.
-
 If you want to install the latest stable release from PyPi::
 
     $ pip install django-multilingual-orgs
