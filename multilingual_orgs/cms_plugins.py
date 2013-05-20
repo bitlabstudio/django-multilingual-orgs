@@ -15,7 +15,7 @@ class OrganizationPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'plugin': instance,
-            'organization': instance.person,
+            'organization': instance.organization,
             'display_type': instance.display_type,
         })
         return context
