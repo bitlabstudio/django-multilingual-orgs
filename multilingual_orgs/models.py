@@ -9,6 +9,28 @@ from filer.fields.file import FilerFileField
 from . import settings
 
 
+class OrganizationManager(models.Manager):
+    """Custom manager for the ``Organization`` model."""
+    def published(self, request, check_language=True):
+        """
+        Returns all organizations, which are published and in the currently
+        active language if check_language is True (default).
+
+        :param request: A Request instance.
+        :param check_language: Option to disable language filtering.
+
+        """
+        results = self.get_query_set().filter(
+            organizationtranslation__is_published=True)
+        if check_language:
+            language = getattr(request, 'LANGUAGE_CODE', None)
+            if not language:
+                self.model.objects.none()
+            results = results.filter(
+                organizationtranslation__language=language)
+        return results.distinct()
+
+
 class Organization(SimpleTranslationMixin, models.Model):
     """
     Holds information about an organization.
@@ -34,6 +56,8 @@ class Organization(SimpleTranslationMixin, models.Model):
         max_length=128,
         blank=True,
     )
+
+    objects = OrganizationManager()
 
 
 class OrganizationPluginModel(CMSPlugin):

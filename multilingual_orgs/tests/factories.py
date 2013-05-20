@@ -10,6 +10,18 @@ from ..models import (
 )
 
 
+class OrganizationBaseFactory(factory.Factory):
+    """
+    Factory for the ``Organization`` model to use in the
+    ``OrganizationTranslationFactory``.
+
+    Without the ``SimpleTranslationMixin``, because it creates extra
+    ``OrganizationTranslation`` objects in the tests.
+
+    """
+    FACTORY_FOR = Organization
+
+
 class OrganizationFactory(SimpleTranslationMixin, factory.Factory):
     """Factory for the ``Organization`` model."""
     FACTORY_FOR = Organization
@@ -32,5 +44,5 @@ class OrganizationTranslationFactory(factory.Factory):
     FACTORY_FOR = OrganizationTranslation
 
     title = factory.Sequence(lambda n: 'my org title {0}'.format(n))
-    organization = factory.SubFactory(OrganizationFactory)
+    organization = factory.SubFactory(OrganizationBaseFactory)
     language = 'en'
