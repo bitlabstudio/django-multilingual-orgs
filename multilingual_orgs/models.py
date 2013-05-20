@@ -59,6 +59,9 @@ class Organization(SimpleTranslationMixin, models.Model):
 
     objects = OrganizationManager()
 
+    def __unicode__(self):
+        return self.get_translation().title
+
 
 class OrganizationPluginModel(CMSPlugin):
     """
