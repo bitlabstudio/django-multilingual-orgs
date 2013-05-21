@@ -1,5 +1,6 @@
 === ongoing ===
 
+- using the MultilingualPublishMixin from django-libs
 
 === 0.1.1 ===
 - added admin and unicode method for Organization model
