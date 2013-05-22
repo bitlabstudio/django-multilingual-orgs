@@ -63,6 +63,40 @@ class Organization(SimpleTranslationMixin, models.Model):
         return self.get_translation().title
 
 
+class OrganizationPersonRole(models.Model):
+    """
+    Intermediary model to connect an organization to a person from
+    django-people.
+
+    :organization: The organization the person belongs to.
+    :person: The person that belongs to that initiative.
+    :role: The role of that person inside the organization.
+    :position: An integer for ordering.
+
+    """
+
+    organization = models.ForeignKey(
+        Organization,
+        verbose_name=_('Organization'),
+    )
+
+    person = models.ForeignKey(
+        'people.Person',
+        verbose_name=_('Person'),
+    )
+
+    role = models.ForeignKey(
+        'people.Role',
+        verbose_name=_('Role'),
+        blank=True, null=True,
+    )
+
+    position = models.PositiveIntegerField(
+        verbose_name=_('Position'),
+        blank=True, null=True,
+    )
+
+
 class OrganizationPluginModel(CMSPlugin):
     """
     Model for the ``OrganizationPluginModel`` cms plugin.

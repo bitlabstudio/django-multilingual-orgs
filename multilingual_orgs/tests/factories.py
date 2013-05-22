@@ -2,10 +2,12 @@
 import factory
 
 from django_libs.tests.factories import SimpleTranslationMixin
+from people.tests.factories import PersonFactory
 
 from ..models import (
     Organization,
     OrganizationPluginModel,
+    OrganizationPersonRole,
     OrganizationTranslation,
 )
 
@@ -29,6 +31,14 @@ class OrganizationFactory(SimpleTranslationMixin, factory.Factory):
     @staticmethod
     def _get_translation_factory_and_field():
         return (OrganizationTranslationFactory, 'organization')
+
+
+class OrganizationPersonRoleFactory(factory.Factory):
+    """Factory for the ``OrganizationPersonRole`` model."""
+    FACTORY_FOR = OrganizationPersonRole
+
+    organization = factory.SubFactory(OrganizationFactory)
+    person = factory.SubFactory(PersonFactory)
 
 
 class OrganizationPluginModelFactory(factory.Factory):

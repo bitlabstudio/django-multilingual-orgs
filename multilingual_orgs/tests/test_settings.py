@@ -94,6 +94,7 @@ EXTERNAL_APPS = [
     'mptt',
     'easy_thumbnails',
     'simple_translation',
+    'people',
 ]
 
 INTERNAL_APPS = [

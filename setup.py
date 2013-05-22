@@ -31,6 +31,8 @@ setup(
         'django-filer',
         'simple-translation',
         'Pillow',
+        'django-people',
+        'django-localized-names'
     ],
     tests_require=[
         'fabric',

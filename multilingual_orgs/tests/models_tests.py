@@ -6,6 +6,7 @@ from django.test import TestCase
 from ..models import Organization
 from .factories import (
     OrganizationFactory,
+    OrganizationPersonRoleFactory,
     OrganizationPluginModelFactory,
     OrganizationTranslationFactory,
 )
@@ -52,6 +53,16 @@ class OrganizationTestCase(TestCase):
             'Should be able to instantiate and save the model.'))
         self.assertTrue(obj.get_translation(), msg=(
             'The factory should also create a translation'))
+
+
+class OrganizationPersonRoleTestCase(TestCase):
+    """Tests for the ``OrganizationPersonRole`` model."""
+    longMessage = True
+
+    def test_model(self):
+        obj = OrganizationPersonRoleFactory()
+        self.assertTrue(obj.pk, msg=(
+            'Should be able to instantiate and save the model.'))
 
 
 class OrganizationPluginModelTestCase(TestCase):

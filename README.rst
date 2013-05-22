@@ -17,6 +17,8 @@ You will need to have the following packages installed:
 * simple-translation
 * Pillow
 * South
+* django-libs
+* django-people
 
 
 Installation
