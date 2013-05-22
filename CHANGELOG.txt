@@ -1,5 +1,8 @@
 === ongoing ===
 
+
+=== 0.3 ===
+
 - Added OrganizationPersonRole and inline admin
 
 === 0.2 ===
