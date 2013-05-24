@@ -3,32 +3,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
-from django_libs.models_mixins import SimpleTranslationMixin
+from django_libs.models_mixins import (
+    SimpleTranslationMixin,
+    SimpleTranslationPublishedManager,
+)
 from filer.fields.file import FilerFileField
 
 from . import settings
-
-
-class OrganizationManager(models.Manager):
-    """Custom manager for the ``Organization`` model."""
-    def published(self, request, check_language=True):
-        """
-        Returns all organizations, which are published and in the currently
-        active language if check_language is True (default).
-
-        :param request: A Request instance.
-        :param check_language: Option to disable language filtering.
-
-        """
-        results = self.get_query_set().filter(
-            organizationtranslation__is_published=True)
-        if check_language:
-            language = getattr(request, 'LANGUAGE_CODE', None)
-            if not language:
-                self.model.objects.none()
-            results = results.filter(
-                organizationtranslation__language=language)
-        return results.distinct()
 
 
 class Organization(SimpleTranslationMixin, models.Model):
@@ -57,7 +38,7 @@ class Organization(SimpleTranslationMixin, models.Model):
         blank=True,
     )
 
-    objects = OrganizationManager()
+    objects = SimpleTranslationPublishedManager()
 
     def __unicode__(self):
         return self.get_translation().title
