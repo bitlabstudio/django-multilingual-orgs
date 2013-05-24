@@ -1,5 +1,8 @@
 === ongoing ===
 
+
+=== 0.4 ===
+
 - using the new SimpleTranslationPublishedManager from django-libs
 
 === 0.3 ===
