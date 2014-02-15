@@ -1,11 +1,12 @@
 """Tests for the models of the ``multilingual_orgs`` app."""
 from django.test import TestCase
 
+from people.tests.factories import PersonFactory
+
 from .factories import (
     OrganizationFactory,
     OrganizationPersonRoleFactory,
     OrganizationPluginModelFactory,
-    OrganizationTranslationFactory,
 )
 
 
@@ -17,8 +18,6 @@ class OrganizationTestCase(TestCase):
         obj = OrganizationFactory()
         self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))
-        self.assertTrue(obj.get_translation(), msg=(
-            'The factory should also create a translation'))
 
 
 class OrganizationPersonRoleTestCase(TestCase):
@@ -26,7 +25,9 @@ class OrganizationPersonRoleTestCase(TestCase):
     longMessage = True
 
     def test_model(self):
-        obj = OrganizationPersonRoleFactory()
+        # TODO somehow without language_code it doesn't work.
+        person = PersonFactory(language_code='en')
+        obj = OrganizationPersonRoleFactory(person=person)
         self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))
 
@@ -37,16 +38,5 @@ class OrganizationPluginModelTestCase(TestCase):
 
     def test_model(self):
         obj = OrganizationPluginModelFactory()
-        self.assertTrue(obj.pk, msg=(
-            'Should be able to instantiate and save the model.'))
-
-
-class OrganizationTranslationTestCase(TestCase):
-    """Tests for the ``OrganizationTranslation`` model."""
-    longMessage = True
-
-    def test_model(self):
-        """Test instantiation of the ``OrganizationTranslation`` model."""
-        obj = OrganizationTranslationFactory(title='my org')
         self.assertTrue(obj.pk, msg=(
             'Should be able to instantiate and save the model.'))
