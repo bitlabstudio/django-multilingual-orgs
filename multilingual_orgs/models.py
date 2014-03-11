@@ -3,16 +3,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
-from django_libs.models_mixins import (
-    SimpleTranslationMixin,
-    SimpleTranslationPublishedManager,
-)
+from hvad.models import TranslatableModel, TranslatedFields
 from filer.fields.file import FilerFileField
 
 from . import settings
 
 
-class Organization(SimpleTranslationMixin, models.Model):
+class Organization(TranslatableModel):
     """
     Holds information about an organization.
 
@@ -37,11 +34,22 @@ class Organization(SimpleTranslationMixin, models.Model):
         max_length=128,
         blank=True,
     )
+    translations = TranslatedFields(
+        title=models.CharField(
+            verbose_name=_('Title'),
+            max_length=2000,
+        ),
+        is_published=models.BooleanField(
+            verbose_name=_('Is published'),
+            default=False,
+        ),
+    )
 
-    objects = SimpleTranslationPublishedManager()
+    # TODO do something here
+#     objects = SimpleTranslationPublishedManager()
 
     def __unicode__(self):
-        return self.get_translation().title
+        return self.safe_translation_getter('title', 'Untranslated org')
 
 
 class OrganizationPersonRole(models.Model):
@@ -94,39 +102,5 @@ class OrganizationPluginModel(CMSPlugin):
 
     organization = models.ForeignKey(
         Organization,
-        verbose_name=_('Organization'),
-    )
-
-
-class OrganizationTranslation(models.Model):
-    """
-    Translatable fields of the ``Organization`` model.
-
-    :title: The title of the organization.
-    :is_published: If the translation of this organization is published or not.
-
-    Needed by simple translation:
-    :language: The language code for this translation. E.g. 'en'
-    :organization: The organization this is the translation of.
-
-    """
-    title = models.CharField(
-        verbose_name=_('Title'),
-        max_length=2000,
-    )
-
-    is_published = models.BooleanField(
-        verbose_name=_('Is published'),
-        default=False,
-    )
-
-    # Needed by simple translation
-    language = models.CharField(
-        verbose_name=_('Language'),
-        max_length=16,
-    )
-
-    organization = models.ForeignKey(
-        'multilingual_orgs.Organization',
         verbose_name=_('Organization'),
     )

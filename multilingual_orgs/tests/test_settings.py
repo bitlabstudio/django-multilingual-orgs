@@ -15,7 +15,7 @@ DATABASES = {
 
 USE_I18N = True
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', 'English'),
@@ -93,7 +93,7 @@ EXTERNAL_APPS = [
     'filer',
     'mptt',
     'easy_thumbnails',
-    'simple_translation',
+    'hvad',
     'people',
 ]
 
@@ -102,8 +102,6 @@ INTERNAL_APPS = [
     'multilingual_orgs',
 ]
 
-
-SECRET_KEY = 'this is no real secret key'
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
 
@@ -117,3 +115,8 @@ CMS_FRONTEND_LANGUAGES = ('en', 'de', )
 CMS_TEMPLATES = (
     ('standard.html', 'Standard'),
 )
+
+SHORT_NAME_FORMAT = '{g} {l}'
+LONG_NAME_FORMAT = '{g} {f} {l}'
+
+SECRET_KEY = 'foobar'
