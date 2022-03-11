@@ -6,7 +6,7 @@
 django==1.6.2
 -e git+https://github.com/KristianOellegaard/django-hvad.git@0e2101f15404eaf9611cd6cf843bfc424117b227#egg=hvad
 # django-hvad==0.3
-Pillow==1.7.8
+Pillow==9.0.1
 South==0.8.4
 django-filer==0.9.5
 -e git+https://github.com/bitmazk/django-people.git@develop#egg=people
